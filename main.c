@@ -1,30 +1,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
 typedef struct cidade{ //Noh com nome descrição e um ponteiro para a próxima cidade;
   char* nome;
   char* descricao;
   struct cidade* prox;
 }Cidade;
 Cidade *ini, *fim;
-
 typedef struct horario{ //Noh com hora de partida, de chegada e quantidade de horas que a viagem tem;
-
     char* partidaT;
     char* chegadaT;
     int horas;
     struct rota* cid;
 }Horario;
-
 typedef struct rota{
   struct horario*testehorario;
   struct cidade *APcidade;
   struct rota* prox, *ant;
 }Rota;
-
 void inicio(){ini = NULL;} 
-
 Cidade *adicionarCidades(char* nome, char *descricao){ //Essa função vai adicionar a cidade na lista;
   Cidade *nova = (Cidade*) malloc(sizeof(Cidade));
   nova->nome = nome;
@@ -199,9 +193,7 @@ int main(){
         do{
             printf("Digite o número relativo ao que deseja fazer:\n\n|1 = Cidade anterior|\t|2 = Próxima cidade|\t|3 = Sair|\n");
             scanf("%d",&s);
-
             if(s == 1){
-        
             if(teste->ant == NULL){
                 printf("-------------------RESULTADO------------------ \n");
                 printf("Desculpe, você já está na cidade de partida!\n");
