@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
 //criamos uma struct cidade, com nome descrição e um ponteiro para a próxima cidade, é um NOH;
 typedef struct cidade{
   char* nome;
@@ -277,16 +276,6 @@ int main(){
             }
             }
         }while(s!=3);
-        
-        
-
-        // while(teste != NULL){
-        // printf("------------------------------------- \n");
-        // printf("NOME: %s \n",teste->APcidade->nome);
-        // printf("\n");
-        // teste = teste->prox;
-        // } 
-
         break;
         case 3 : 
         break;
