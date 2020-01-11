@@ -1,35 +1,31 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-//criamos uma struct cidade, com nome descrição e um ponteiro para a próxima cidade, é um NOH;
-typedef struct cidade{
+
+typedef struct cidade{ //Noh com nome descrição e um ponteiro para a próxima cidade;
   char* nome;
   char* descricao;
   struct cidade* prox;
 }Cidade;
 Cidade *ini, *fim;
 
-//um Noh horário com hora de partida, de chegada e quantidade de horas que a viagem tem;
-typedef struct horario{
+typedef struct horario{ //Noh com hora de partida, de chegada e quantidade de horas que a viagem tem;
+
     char* partidaT;
     char* chegadaT;
     int horas;
     struct rota* cid;
 }Horario;
-//Essa struct rota vai servir para
+
 typedef struct rota{
   struct horario*testehorario;
   struct cidade *APcidade;
   struct rota* prox, *ant;
 }Rota;
 
+void inicio(){ini = NULL;} 
 
-void inicio(){ini = NULL;} //INICIO DA LISTA DE CIDADESuCIDADES
-
-//Essa função vai adicionar a cidade na lista;
-//e a lista está dentro de um indice da tabela;
-// essa tabela é um vetor de ponteiros, apontando para cada rota, ou seja, para cada lista de cidades (tipo a de fortaleza para varzea alegre)
-Cidade *adicionarCidades(char* nome, char *descricao){
+Cidade *adicionarCidades(char* nome, char *descricao){ //Essa função vai adicionar a cidade na lista;
   Cidade *nova = (Cidade*) malloc(sizeof(Cidade));
   nova->nome = nome;
   nova->descricao = descricao;
@@ -38,21 +34,16 @@ Cidade *adicionarCidades(char* nome, char *descricao){
   else{fim->prox = nova; fim = nova;}
   return nova;
 }
-
 Rota* rotas[10];
-//A função inicilizarRota cria a tabela com as listas de rotas;
-//E já faz a "união" da tabela com a lista que contém as cidades;
-Rota *inicializarRota(int i, char* nome){
+Rota *inicializarRota(int i, char* nome){ //cria a tabela com as listas de rotas, já faz a "união" da tabela com a lista que contém as cidades;
   Rota *nova = (Rota*) malloc(sizeof(Rota));
   Cidade *auxC = (Cidade*) malloc(sizeof(Cidade));
   auxC = ini;
   nova->prox = NULL;
-
   if(rotas[i] == NULL){
     rotas[i] = nova;
     nova->ant= NULL;
     nova->APcidade = auxC;
-
   }else{
     Rota *aux;
     aux = rotas[i];
@@ -65,7 +56,6 @@ Rota *inicializarRota(int i, char* nome){
     nova->APcidade = auxC;
     nova->ant = aux;
     aux->prox  = nova;
-
   }
   return nova;
 }
@@ -77,12 +67,9 @@ Horario *criahorario(Rota *rotateste, int i, char* partida, char* chegada){
     novo->cid = rotateste;
     rotateste->testehorario = novo;
 }
-
-
 int main(){
   //TESTANDO A LISTA DE CIDADES
   inicio();
-
   adicionarCidades("Fortaleza", "Terra do sol");
   adicionarCidades("Juazeiro do Norte", "Terra do padre cícero");
   adicionarCidades("Várzea Alegre", "Terra do arroz");
@@ -108,15 +95,6 @@ int main(){
   adicionarCidades("Lavras da Mangabeira", "Sétima Maravilha do Ceará.");
   adicionarCidades("Canindé", "Cidade da fé.");
   adicionarCidades("Ipueiras", "Altiva, forte e magestosa! Soberana e gloriosa!.");
-
-
-
-  //  while(ini != NULL){
-  //    printf("NOME e DESCRIÇÃO %s %s\n",ini->nome, ini->descrição);
- 
-  //    ini = ini->prox;
-  //  }  
-
    //ROTA 1
     inicializarRota(0, "Fortaleza");
     criahorario(rotas[0], 9, "10:00", "19:00");
@@ -124,32 +102,27 @@ int main(){
     inicializarRota(0, "Acopiara");
     inicializarRota(0, "Iguatu");
     inicializarRota(0, "Várzea Alegre");
-    //printf("NOME e DESCRIÇÃO %s \n",rotas[0]->testehorario->partidaT);
-
-//   //ROTA 2
+   //ROTA 2
      inicializarRota(1, "Fortaleza");
      criahorario(rotas[1], 4, "12:00", "16:00");
      inicializarRota(1, "Quixadá");
     inicializarRota(1, "Quixeramobim");
     inicializarRota(1, "Senador Pompeu");
     inicializarRota(1, "Pedra Branca");
-   // printf("NOME e DESCRIÇÃO %s \n",rotas[1]->testehorario->partidaT);
-  //ROTA 3
+   //ROTA 3
     inicializarRota(2, "Fortaleza");
     criahorario(rotas[2], 3, "10:30", "13:30");
     inicializarRota(2, "Horizonte");
     inicializarRota(2, "Pacajus");
     inicializarRota(2, "Quixadá");
     inicializarRota(2, "Quixeramobim");
-   // printf("NOME e DESCRIÇÃO %s \n",rotas[2]->testehorario->partidaT);
-//    //ROTA 4
+    //ROTA 4
     inicializarRota(3, "Fortaleza");
     criahorario(rotas[3], 7, "13:00", "20:00");
     inicializarRota(3, "Horizonte");
     inicializarRota(3, "Banabuiú");
     inicializarRota(3, "Iguatu");
     inicializarRota(3, "Crato");
-   // printf("NOME e DESCRIÇÃO %s \n",rotas[3]->testehorario->partidaT);
     //ROTA 5
     inicializarRota(4, "Fortaleza");
     criahorario(rotas[4], 7, "09:45", "16:45");
@@ -157,7 +130,6 @@ int main(){
     inicializarRota(4, "Banabuiú");
     inicializarRota(4, "Juazeiro do Norte");
     inicializarRota(4, "Barbalha");
-    //printf("NOME e DESCRIÇÃO %s \n",rotas[4]->testehorario->partidaT);
     //ROTA 6
     inicializarRota(5, "Fortaleza");
     criahorario(rotas[5], 7, "16:00", "23:00");
@@ -165,23 +137,20 @@ int main(){
     inicializarRota(5, "Quixadá");
     inicializarRota(5, "Lavras da Mangabeira");
     inicializarRota(5, "Juazeiro do Norte");
-   // printf("NOME e DESCRIÇÃO %s \n",rotas[5]->testehorario->partidaT);
-    //ROTA 7
+     //ROTA 7
     inicializarRota(6, "Fortaleza");
     criahorario(rotas[6], 1, "10:00", "11:00");
     inicializarRota(6, "Caucaia");
     inicializarRota(6, "São Gonçalo do Amarante");
     inicializarRota(6, "Paraipaba");
     inicializarRota(6, "Trairi");
-   // printf("NOME e DESCRIÇÃO %s \n",rotas[6]->testehorario->partidaT);
-    //ROTA 8
+     //ROTA 8
     inicializarRota(7, "Fortaleza");
     criahorario(rotas[7], 5, "13:00", "18:00");
     inicializarRota(7, "Caucaia");
     inicializarRota(7, "Canindé");
     inicializarRota(7, "Boa viagem");
     inicializarRota(7, "Iguatu");
-    //printf("NOME e DESCRIÇÃO %s \n",rotas[7]->testehorario->partidaT);
     //ROTA 9
     inicializarRota(8, "Fortaleza");
     criahorario(rotas[8], 5, "11:30", "16:30");
@@ -189,40 +158,23 @@ int main(){
     inicializarRota(8, "Canindé");
     inicializarRota(8, "Quixadá");
     inicializarRota(8, "Ipueiras");
-    //printf("NOME e DESCRIÇÃO %s \n",rotas[8]->testehorario->partidaT);
-    //ROTA 10
+     //ROTA 10
     inicializarRota(9, "Fortaleza");
     criahorario(rotas[9], 6, "12:00", "18:00");
     inicializarRota(9, "Horizonte");
     inicializarRota(9, "Quixadá");
     inicializarRota(9, "Quixeramobim");
     inicializarRota(9, "Acopiara");
-   // printf("NOME e DESCRIÇÃO %s \n",rotas[9]->testehorario->partidaT);
-
-    //inicializarRota("kk", "2",  0, "Iguatu");
-
     printf("===================================== \n");
     printf("            Lista de Rotas \n");
     printf("===================================== \n");
     printf("0 = Várzea Alegre | 9hrs de viagem \n1 = Pedra Branca   | 9hrs de viagem \n2 = Quixeramobim  | 3hrs de viagem \n3 = Crato  | 7hrs de viagem \n4 = Barbalha  | 7hrs de viagem \n5 = Juazeiro do Norte  | 7hrs de viagem \n6 = Trairi  | 1hrs de viagem \n7 = Iguatu  | 5hrs de viagem \n8 = Ipueiras  | 5hrs de viagem \n9 = Acopiara  | 6hrs de viagem \n") ; 
-
-    char* hora;
     int i;//indice da rota 
     printf("\nDIGITE O NÚMERO DA ROTA DESEJADA: ");
     scanf("%d",&i);
     Rota *teste = rotas[i];
-    printf("\nCerto, em qual horário você deseja chegar? (exemplo: 10:00)\n");
-    scanf("%s",hora);
-  Rota* teste5 = rotas[i];
-    printf("Vamos ver se este horário está disponível...\n");
-
-    if(rotas[i]->testehorario->chegadaT != hora){
-      printf("\nDesculpe, este horário não está disponível.\nTemos o horário das: %s", rotas[i]->testehorario->chegadaT);
-      
-    }else{printf("Temos este horário disponível! ");}
-
- int auxP;
-  Rota*teste2 = teste;
+    int auxP;
+    Rota*teste2 = teste;
     do{
         printf("\nO que você deseja fazer agora?\n");
         printf("------------------------------------");
@@ -280,7 +232,5 @@ int main(){
         case 3 : 
         break;
         }
-    }while(auxP!=3);
- 
-    
+    }while(auxP!=3);  
 }
